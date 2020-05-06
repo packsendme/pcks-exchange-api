@@ -33,7 +33,7 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 	private final String KEY_DEFAULT_CURRENT = "USD";
 	
 	@Override
-	public ExchangeBRE_Model getExchangeCurrent(String current) {
+	public ExchangeBRE_Model getExchangeCurrent(String current, Date dtNow) {
 		ExchangeBRE_Model exchangeBRE_Model = new ExchangeBRE_Model();
 		try {
 			RestTemplate restTemplate = new RestTemplate();
@@ -56,7 +56,7 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 		    
 			if (response.getStatusCode() == HttpStatus.OK) {
 				exchangeBRE_Model.value = parseExchange(response.getBody(), current);
-				exchangeBRE_Model.dt_exchange = new Date();
+				exchangeBRE_Model.dt_exchange = dtNow;
 				exchangeBRE_Model.to = current;
 				exchangeBRE_Model.from = KEY_DEFAULT_CURRENT;
 			}

@@ -13,6 +13,7 @@ import com.packsendme.api.exchange.dao.ExchangeImpl_DAO;
 import com.packsendme.exchange.bre.model.ExchangeBRE_Model;
 import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
 import com.packsendme.lib.common.response.Response;
+import com.packsendme.lib.utility.ConvertFormat;
 
 @Service
 @ComponentScan({"com.packsendme.api.exchange.component"})
@@ -29,16 +30,25 @@ public class Exchange_Services {
 
 	ExchangeBRE_Model exchangeModel = null;
 
-	public ResponseEntity<?> getRate(String current) {
+	public ResponseEntity<?> getExchangeRate(String current) {
 		Response<ExchangeBRE_Model> responseObj = null;
+		ConvertFormat dateFormat = new ConvertFormat();
 		
 		try {
-			 // (1) Find In Cache IF current exist
+			String dtNowS = new Date().toString();
+			Date dtNow = dateFormat.convertStringToDateShort(dtNowS);
+
+			// (1) Find In Cache IF current exist
 			ExchangeBRE_Model exchangeBRE = exchangeBREImpl_DAO.findOne(cacheConfig.exchangeBRE_SA, current);
-			
+
 			if(exchangeBRE != null) {
-				if(exchangeBRE.dt_exchange.equals(new Date())){
-					
+				
+				System.out.println("-- -- ");
+				System.out.println("-- DATA STRING  -- "+ dtNowS);
+				System.out.println("-- DATA   -- "+ dtNow);
+				System.out.println("-- -- ");
+	
+				if(exchangeBRE.dt_exchange.equals(dtNow)){
 					System.out.println("-- -- ");
 					System.out.println("-- HTTP NO-API  -- "+ exchangeBRE.dt_exchange);
 					System.out.println("-- -- ");
@@ -53,7 +63,7 @@ public class Exchange_Services {
 					System.out.println("-- -- ");
 
 					
-					exchangeModel = currconvAPI.getExchangeCurrent(current);
+					exchangeModel = currconvAPI.getExchangeCurrent(current, dtNow);
 					responseObj = new Response<ExchangeBRE_Model>(HttpExceptionPackSend.FOUND_EXCHANGE.value(),HttpExceptionPackSend.FOUND_EXCHANGE.getAction(), exchangeModel);
 
 					Thread t1 = new Thread(new Runnable() {
@@ -72,7 +82,7 @@ public class Exchange_Services {
 			}
 			else {
 				 // (2) Find In api.currconv.com
-				exchangeModel = currconvAPI.getExchangeCurrent(current);
+				exchangeModel = currconvAPI.getExchangeCurrent(current, dtNow);
 				responseObj = new Response<ExchangeBRE_Model>(HttpExceptionPackSend.FOUND_EXCHANGE.value(),HttpExceptionPackSend.FOUND_EXCHANGE.getAction(), exchangeModel);
 				Thread t2 = new Thread(new Runnable() {
 					@Override
@@ -93,5 +103,6 @@ public class Exchange_Services {
 			return new ResponseEntity<>(responseObj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 	
 }
