@@ -13,7 +13,7 @@ import com.packsendme.api.exchange.service.Exchange_Services;
 
 
 @RestController
-@RequestMapping("/exchange")
+@RequestMapping("/api/exchange")
 public class ExchangeBRE_Controller {
 	
 	@Autowired
@@ -25,9 +25,9 @@ public class ExchangeBRE_Controller {
 	//========================================================================================//
 
 	@GetMapping("/{current}")
-	public ResponseEntity<?> getExchangeRate(@Validated  @PathVariable ("current") String current) {		
+	public ResponseEntity<?> getExchange(@Validated  @PathVariable ("current") String current) {		
 		try {
-			return exchange_Services.getRate(current);
+			return exchange_Services.getExchangeRate(current);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
