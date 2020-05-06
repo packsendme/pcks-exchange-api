@@ -15,7 +15,7 @@ import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
 import com.packsendme.lib.common.response.Response;
 
 @Service
-@ComponentScan({"com.packsendme.api.exchange.dao,com.packsendme.api.exchange.component"})
+@ComponentScan({"com.packsendme.api.exchange.component"})
 public class Exchange_Services {
 	
 	@Autowired
