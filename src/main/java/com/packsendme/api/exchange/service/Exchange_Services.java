@@ -38,10 +38,21 @@ public class Exchange_Services {
 			
 			if(exchangeBRE != null) {
 				if(exchangeBRE.dt_exchange.equals(new Date())){
+					
+					System.out.println("-- -- ");
+					System.out.println("-- HTTP NO-API  -- "+ exchangeBRE.dt_exchange);
+					System.out.println("-- -- ");
+
 					responseObj = new Response<ExchangeBRE_Model>(HttpExceptionPackSend.FOUND_EXCHANGE.value(),HttpExceptionPackSend.FOUND_EXCHANGE.getAction(), exchangeBRE);
 				}
 				else {
 					 // (2) Find In api.currconv.com
+					
+					System.out.println("-- -- ");
+					System.out.println("-- HTTP API  -- "+ exchangeBRE.dt_exchange);
+					System.out.println("-- -- ");
+
+					
 					exchangeModel = currconvAPI.getExchangeCurrent(current);
 					responseObj = new Response<ExchangeBRE_Model>(HttpExceptionPackSend.FOUND_EXCHANGE.value(),HttpExceptionPackSend.FOUND_EXCHANGE.getAction(), exchangeModel);
 
