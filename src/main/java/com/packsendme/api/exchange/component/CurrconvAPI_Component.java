@@ -61,7 +61,7 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 				System.out.println("-- -- ");
 
 				
-				exchangeBRE_Model.value = parseExchange(response.toString(), current);
+				exchangeBRE_Model.value = parseExchange(response.getBody(), current);
 				exchangeBRE_Model.dt_exchange = new Date();
 				exchangeBRE_Model.to = current;
 				exchangeBRE_Model.from = KEY_DEFAULT_CURRENT;
