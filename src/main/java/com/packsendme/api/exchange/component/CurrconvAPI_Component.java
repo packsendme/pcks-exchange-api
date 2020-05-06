@@ -55,6 +55,12 @@ public class CurrconvAPI_Component implements IExchangeAPI {
                     uriParam);
 		    
 			if (response.getStatusCode() == HttpStatus.OK) {
+				System.out.println("-- -- ");
+				System.out.println("-- RESPONSE -- "+ response.toString());
+				System.out.println("-- RESPONSE -- "+ response.getBody());
+				System.out.println("-- -- ");
+
+				
 				exchangeBRE_Model.value = parseExchange(response.toString(), current);
 				exchangeBRE_Model.dt_exchange = new Date();
 				exchangeBRE_Model.to = current;
