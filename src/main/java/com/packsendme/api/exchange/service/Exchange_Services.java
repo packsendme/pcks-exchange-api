@@ -24,7 +24,7 @@ public class Exchange_Services {
 	@Autowired
 	ExchangeImpl_DAO<ExchangeBRE_Model> exchangeBREImpl_DAO;
 	
-	@Autowired
+	@Autowired(required=true)
 	CurrconvAPI_Component currconvAPI; 
 
 	ExchangeBRE_Model exchangeModel = null;
