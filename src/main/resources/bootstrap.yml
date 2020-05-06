@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: packsendme-exchange-api
+  cloud:
+    config:
+      uri: http://192.241.133.13:9090
