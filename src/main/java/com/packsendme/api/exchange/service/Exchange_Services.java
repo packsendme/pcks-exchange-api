@@ -15,7 +15,7 @@ import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
 import com.packsendme.lib.common.response.Response;
 
 @Service
-@ComponentScan({"com.packsendme.api.exchange.dao,com.packsendme.api.exchange.component"})
+@ComponentScan({"com.packsendme.api.exchange.component"})
 public class Exchange_Services {
 	
 	@Autowired
@@ -24,7 +24,7 @@ public class Exchange_Services {
 	@Autowired
 	ExchangeImpl_DAO<ExchangeBRE_Model> exchangeBREImpl_DAO;
 	
-	@Autowired
+	@Autowired(required=true)
 	CurrconvAPI_Component currconvAPI; 
 
 	ExchangeBRE_Model exchangeModel = null;

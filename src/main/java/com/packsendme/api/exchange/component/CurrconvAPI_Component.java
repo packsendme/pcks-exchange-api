@@ -1,6 +1,7 @@
 package com.packsendme.api.exchange.component;
 
 import java.util.Collections;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +16,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.packsendme.exchange.bre.model.ExchangeBRE_Model;
 
+@Component
 public class CurrconvAPI_Component implements IExchangeAPI {
 	
 	@Value(value = "${api.exchange.currconvAPI.url}")
