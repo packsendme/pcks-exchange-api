@@ -15,7 +15,7 @@ import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
 import com.packsendme.lib.common.response.Response;
 
 @Service
-@ComponentScan("com.packsendme.microservice.sa.businessrule.dao")
+@ComponentScan("com.packsendme.api.exchange.dao")
 public class Exchange_Services {
 	
 	public enum Operation_Enum {
