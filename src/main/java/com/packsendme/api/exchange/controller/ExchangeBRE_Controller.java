@@ -38,7 +38,7 @@ public class ExchangeBRE_Controller {
 	// METHOD GET ::EXCHANGE-BRE -> LIST COUNTRIES
 	//========================================================================================//
 
-	@GetMapping("/country/{country}")
+	@GetMapping("/country/{countryCode}")
 	public ResponseEntity<?> getCountry(@Validated  @PathVariable ("countryCode") String countryCode) {		
 		try {
 			return exchange_Services.getCountryByExchange(countryCode);
