@@ -24,7 +24,7 @@ public class ExchangeBRE_Controller {
 	// METHOD POST|GET ::EXCHANGE-BRE -> CURRENT
 	//========================================================================================//
 
-	@GetMapping("/{current}")
+	@GetMapping("/rate/{current}")
 	public ResponseEntity<?> getExchange(@Validated  @PathVariable ("current") String current) {		
 		try {
 			return exchange_Services.getExchangeRate(current);
@@ -38,7 +38,7 @@ public class ExchangeBRE_Controller {
 	// METHOD GET ::EXCHANGE-BRE -> LIST COUNTRIES
 	//========================================================================================//
 
-	@GetMapping("/{country}")
+	@GetMapping("/country/{country}")
 	public ResponseEntity<?> getCountry(@Validated  @PathVariable ("countryCode") String countryCode) {		
 		try {
 			return exchange_Services.getCountryByExchange(countryCode);
