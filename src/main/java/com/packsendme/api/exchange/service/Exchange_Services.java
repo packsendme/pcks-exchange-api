@@ -13,6 +13,7 @@ import com.packsendme.api.exchange.component.CurrconvAPI_Component;
 import com.packsendme.api.exchange.config.Cache_Config;
 import com.packsendme.api.exchange.dao.ExchangeImpl_DAO;
 import com.packsendme.exchange.bre.model.ExchangeBRE_Model;
+import com.packsendme.exchange.bre.model.ExchangeCountryBRE_Model;
 import com.packsendme.lib.common.constants.generic.HttpExceptionPackSend;
 import com.packsendme.lib.common.response.Response;
 import com.packsendme.lib.utility.ConvertFormat;
@@ -33,6 +34,12 @@ public class Exchange_Services {
 	ExchangeBRE_Model exchangeModel = null;
 	
 	private final String KEY_DEFAULT_CURRENT = "USD";
+	
+	
+	//========================================================================================
+	// METHOD POST|GET ::EXCHANGE-BRE -> CURRENT
+	//========================================================================================//
+
 	
 	public ResponseEntity<?> getExchangeRate(String current) {
 		Response<ExchangeBRE_Model> responseObj = null;
@@ -55,7 +62,6 @@ public class Exchange_Services {
 					 // (2) Find In api.currconv.com
 					ExchangeBRE_Model exchangeBRE = getExchangeRateAPI(current, nwDateS, exchangeBRE_Cache);
 					responseObj = new Response<ExchangeBRE_Model>(HttpExceptionPackSend.FOUND_EXCHANGE.value(),HttpExceptionPackSend.FOUND_EXCHANGE.getAction(), exchangeBRE);
-
 				}
 			}
 			else {
@@ -65,9 +71,7 @@ public class Exchange_Services {
 				ExchangeBRE_Model exchangeBRE = getExchangeRateAPI(current, nwDateS, exchangeBRE_Cache);
 				responseObj = new Response<ExchangeBRE_Model>(HttpExceptionPackSend.FOUND_EXCHANGE.value(),HttpExceptionPackSend.FOUND_EXCHANGE.getAction(), exchangeBRE);
 			}
-			
 			return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
-			
 		} catch (Exception e) {
 			responseObj = new Response<ExchangeBRE_Model>(HttpExceptionPackSend.FAIL_EXECUTION.value(),HttpExceptionPackSend.EXCHANGE_RATE.getAction(), null);
 			return new ResponseEntity<>(responseObj, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -93,7 +97,6 @@ public class Exchange_Services {
 				@Override
 		        public void run() {
 					System.out.println(" Thread Thread Thread Thread Thread Thread Thread");
-
 		        	try {
 						Thread.sleep(1000);
 						exchangeBREImpl_DAO.add(cacheConfig.exchangeBRE_SA, exchangeModel.toCurrent, exchangeModel);
@@ -107,6 +110,23 @@ public class Exchange_Services {
 		return exchangeModel;
 	}
 		
+	//========================================================================================
+	// METHOD GET ::EXCHANGE-BRE -> LIST COUNTRIES
+	//========================================================================================//
 
+	public ResponseEntity<?> getCountryByExchange(String countryCode) {
+		Response<ExchangeCountryBRE_Model> responseObj = null;
+		
+		// (2) Find In api.currconv.com
+		ExchangeCountryBRE_Model exchangeCountryModel = currconvAPI.getCountriesCurrent(countryCode);
+		if(exchangeCountryModel != null) {
+			responseObj = new Response<ExchangeCountryBRE_Model>(HttpExceptionPackSend.FOUND_EXCHANGE.value(),HttpExceptionPackSend.FOUND_EXCHANGE.getAction(), exchangeCountryModel);
+			return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
+		}
+		else {
+			responseObj = new Response<ExchangeCountryBRE_Model>(HttpExceptionPackSend.COUNTRY_NOT_FOUND.value(),HttpExceptionPackSend.COUNTRY_NOT_FOUND.getAction(), null);
+			return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
+		}
+	}
 	
 }

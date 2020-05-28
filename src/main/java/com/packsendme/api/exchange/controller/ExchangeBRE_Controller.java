@@ -21,13 +21,27 @@ public class ExchangeBRE_Controller {
 	
 	
 	//========================================================================================
-	// METHOD POST|GET ::EXCHANGE-BRE
+	// METHOD POST|GET ::EXCHANGE-BRE -> CURRENT
 	//========================================================================================//
 
 	@GetMapping("/{current}")
 	public ResponseEntity<?> getExchange(@Validated  @PathVariable ("current") String current) {		
 		try {
 			return exchange_Services.getExchangeRate(current);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	//========================================================================================
+	// METHOD GET ::EXCHANGE-BRE -> LIST COUNTRIES
+	//========================================================================================//
+
+	@GetMapping("/{country}")
+	public ResponseEntity<?> getCountry(@Validated  @PathVariable ("countryCode") String countryCode) {		
+		try {
+			return exchange_Services.getCountryByExchange(countryCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
