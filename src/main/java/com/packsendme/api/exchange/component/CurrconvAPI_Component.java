@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.packsendme.exchange.bre.model.ExchangeBRE_Model;
 import com.packsendme.exchange.bre.model.ExchangeCountryBRE_Model;
+import com.packsendme.lib.utility.FormatValueMoney;
 
 @Component
 public class CurrconvAPI_Component implements IExchangeAPI {
@@ -33,6 +34,8 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 	public String key;
 
 	private final String KEY_DEFAULT_CURRENT = "USD";
+	
+	FormatValueMoney moneyFormat = new FormatValueMoney();
 	
 	@Override
 	public ExchangeBRE_Model getExchangeCurrent(String current, String dtNow) {
@@ -110,7 +113,7 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 			jsonObject = (JSONObject) parser.parse(jsonData);
 			String resultS = jsonObject.get(key).toString();
 			valueResult = Double.parseDouble(resultS);
-			return valueResult;
+			return moneyFormat.doubleFormatRound(valueResult);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
