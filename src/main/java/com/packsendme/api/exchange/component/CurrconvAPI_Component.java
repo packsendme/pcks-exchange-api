@@ -113,7 +113,7 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 			jsonObject = (JSONObject) parser.parse(jsonData);
 			String resultS = jsonObject.get(key).toString();
 			valueResult = Double.parseDouble(resultS);
-			return moneyFormat.doubleFormatRound(valueResult);
+			return moneyFormat.formatDouble(valueResult);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
