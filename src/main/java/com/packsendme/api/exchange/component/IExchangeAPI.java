@@ -1,15 +1,15 @@
 package com.packsendme.api.exchange.component;
 
-import com.packsendme.exchange.bre.model.ExchangeBRE_Model;
-import com.packsendme.exchange.bre.model.ExchangeCountryBRE_Model;
+import com.packsendme.lib.common.exchange.Exchange;
+import com.packsendme.lib.common.exchange.ExchangeCountry;
 
 public interface IExchangeAPI {
 	
-	public ExchangeBRE_Model getExchangeCurrent(String current, String dtNow);
-	public ExchangeCountryBRE_Model getCountriesCurrent(String countryCode);
+	public Exchange getExchangeCurrent(String current, String dtNow);
+	public ExchangeCountry getCountriesCurrent(String countryCode);
 
 	public Double parseExchange(String jsonData, String current);
-	public ExchangeCountryBRE_Model parseCountryName(String jsonData, String country);
+	public ExchangeCountry parseCountryName(String jsonData, String country);
 
 
 }

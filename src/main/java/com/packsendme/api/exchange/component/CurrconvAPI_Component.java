@@ -17,8 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.packsendme.exchange.bre.model.ExchangeBRE_Model;
-import com.packsendme.exchange.bre.model.ExchangeCountryBRE_Model;
+import com.packsendme.lib.common.exchange.Exchange;
+import com.packsendme.lib.common.exchange.ExchangeCountry;
 import com.packsendme.lib.utility.FormatValueMoney;
 
 @Component
@@ -38,8 +38,8 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 	FormatValueMoney moneyFormat = new FormatValueMoney();
 	
 	@Override
-	public ExchangeBRE_Model getExchangeCurrent(String current, String dtNow) {
-		ExchangeBRE_Model exchangeBRE_Model = null;
+	public Exchange getExchangeCurrent(String current, String dtNow) {
+		Exchange exchangeBRE_Model = null;
 		try {
 			RestTemplate restTemplate = new RestTemplate();
 			
@@ -61,7 +61,7 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 		    
 			if (response.getStatusCode() == HttpStatus.OK) {
 				Double value = parseExchange(response.getBody(), current);
-				exchangeBRE_Model = new ExchangeBRE_Model(KEY_DEFAULT_CURRENT, current, value, dtNow);
+				exchangeBRE_Model = new Exchange(KEY_DEFAULT_CURRENT, current, value, dtNow);
 			}
 		    return exchangeBRE_Model;
 		}
@@ -72,8 +72,8 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 	}
 
 	@Override
-	public ExchangeCountryBRE_Model getCountriesCurrent(String countryCode) {
-		ExchangeCountryBRE_Model exchangeCountryBRE_Model = null;
+	public ExchangeCountry getCountriesCurrent(String countryCode) {
+		ExchangeCountry exchangeCountryBRE_Model = null;
 		try {
 			RestTemplate restTemplate = new RestTemplate();
 			
@@ -123,10 +123,10 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 	
 	
 	@Override
-	public ExchangeCountryBRE_Model parseCountryName(String jsonData, String countryCode) {
+	public ExchangeCountry parseCountryName(String jsonData, String countryCode) {
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObject;
-		ExchangeCountryBRE_Model exchangeCountry = null; 
+		ExchangeCountry exchangeCountry = null; 
 		try {
 			jsonObject = (JSONObject) parser.parse(jsonData);
 			String jsonParse = jsonObject.get("results").toString();
@@ -134,7 +134,7 @@ public class CurrconvAPI_Component implements IExchangeAPI {
 			String jsonParseCountry = jsonObject.get(countryCode).toString();
 			jsonObject = (JSONObject) parser.parse(jsonParseCountry);
 			String jsonParseCountryName = jsonObject.get("name").toString();
-			exchangeCountry = new ExchangeCountryBRE_Model(jsonObject.get("currencyId").toString(), jsonObject.get("name").toString(), jsonObject.get("currencySymbol").toString());
+			exchangeCountry = new ExchangeCountry(jsonObject.get("currencyId").toString(), jsonObject.get("name").toString(), jsonObject.get("currencySymbol").toString());
 			System.out.println(" COUNTRY NAME "+ jsonParseCountryName);
 			return exchangeCountry;
 		}

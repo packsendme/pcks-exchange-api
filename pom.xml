@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.packsendme.api.exchange</groupId>
-	<artifactId>packsendme-exchange-api</artifactId>
+	<artifactId>pcks-exchange-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>packsendme-exchange-api</name>
+	<name>pcks-exchange-api</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -102,7 +102,7 @@
 		
 		<dependency>
 			<groupId>com.packsendme.lib.common</groupId>
-			<artifactId>packsendme-common-lib</artifactId>
+			<artifactId>pcks-common-lib</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
@@ -110,13 +110,7 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.packsendme.bre.exchange</groupId>
-  			<artifactId>packsendme-exchange-bre</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		
+
 		<dependency>
   			<groupId>org.modelmapper</groupId>
   			<artifactId>modelmapper</artifactId>

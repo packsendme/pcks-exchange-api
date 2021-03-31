@@ -14,7 +14,7 @@ import com.packsendme.api.exchange.service.Exchange_Services;
 
 @RestController
 @RequestMapping("/api/exchange")
-public class ExchangeBRE_Controller {
+public class Exchange_Controller {
 	
 	@Autowired
 	private Exchange_Services exchange_Services; 
