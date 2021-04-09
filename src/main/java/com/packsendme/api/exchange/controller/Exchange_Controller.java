@@ -54,7 +54,7 @@ public class Exchange_Controller {
 	//========================================================================================
 	// METHOD GET ::EXCHANGE-BRE -> LIST COUNTRIES
 	//========================================================================================//
-
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@GetMapping("/country/{countryCode}")
 	public ResponseEntity<?> getCountry(@Validated  @PathVariable ("countryCode") String countryCode) {		
 		try {
